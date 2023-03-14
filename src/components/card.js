@@ -48,16 +48,16 @@ const cardAppender = (selector) => {
   //
   const endpoint = 'http://localhost:5001/api/articles';
   const container = document.querySelector(selector);
-
   axios.get(endpoint)
-    .then(response => {
-      const articles = Object.values(response.data).flat();
-      articles.forEach(article => {
-        const card = Card(article);
-        container.appendChild(card);
+  .then(response => {
+    const articles = Object.values(response.data.articles);
+    articles.forEach(article => {
+      article.forEach(article => {
+        container.appendChild(Card(article));
       });
-    })
-    .catch(error => console.log(error));
+    });
+  })
+  .catch(error => console.error(error));
 }
 
 export { Card, cardAppender }
